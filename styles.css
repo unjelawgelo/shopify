@@ -1,0 +1,203 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+}
+
+.container {
+    width: 90%;
+    margin: 0 auto;
+}
+
+.top-bar {
+    background-color: #ffffffec;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    border-radius: 5px;
+}
+ 
+
+
+
+
+
+
+
+
+/* Logo in the middle */
+.top-bar .logo-container {
+    flex-grow: 0; /* Allow the logo to grow and center it */
+    text-align: center; /* Center the logo */
+    background-color: white; /* White background for the logo */
+    border-radius: 5px; /* Rounded corners for the logo container */
+    padding: 0px; /* Padding around the logo */
+    display: inline-block; /* Ensure it aligns properly */
+}
+
+#channelLogo {
+    max-height: 55px; /* Set maximum height for the logo */
+    max-width: 150px; /* Set maximum width to maintain aspect ratio */
+    display: inline-block; /* Ensure it aligns properly */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.top-bar .profile {
+    display: flex;
+    align-items: center;
+}
+.profile-name {
+    color: black;
+}
+.profile-icon {
+    background-color: #6259b1;
+    border-radius: 20%;
+    padding: 10px;
+    color: white;
+    margin-right: 7px;
+}
+
+.navbar {
+    display: flex;
+    justify-content: center;
+    background-color: transparent;
+    margin-top: 20px;
+}
+
+.nav-btn {
+    background: transparent;
+    border: 2px solid transparent;
+    color: #303b6d;
+    padding: 10px 20px;
+    margin: 0 5px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.nav-btn.active {
+    border-color: rgba(0, 128, 0, 0.193);
+    background-color: rgb(241, 255, 241);
+}
+
+.nav-btn:hover {
+    border-color: rgba(0, 128, 0, 0.193);
+    background-color: rgb(241, 255, 241);
+}
+
+.card {
+    background-color: white;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    text-align: center; /* Centering total sales text */
+}
+
+.total-sales-text {
+    margin: 0;
+}
+
+/* Style for the total sales */
+.stat-value {
+    font-size: 3rem; /* Increase font size to make it bigger */
+    font-weight: bold;
+    transition: all 0.3s ease; /* Smooth transition */
+}
+
+.orders {
+    font-size: 1.2rem;
+    color: gray;
+}
+
+.view-dashboard {
+    color: #007bff;
+    text-decoration: none;
+    margin-top: 10px;
+    display: block;
+}
+
+ 
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table,
+th,
+td {
+    border: 1px solid #ddd;
+}
+
+th,
+td {
+    padding: 10px;
+    text-align: left;
+}
+
+tr.total-sales {
+    font-weight: bold;
+}
+
+h3 {
+    margin: 0 0 10px;
+}
+
+.card {
+    position: relative;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+}
+
+.sales-container {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Center the items */
+    gap: 30px; /* Add gap for spacing */
+}
+
+/* Example CSS for foreshadowing sales values */
+.foreshadow {
+    font-size: 1.5rem; /* Increase font size */
+    color: gray; /* Set text color to gray */
+    opacity: 0.7; /* Adjust opacity for faded effect */
+    margin: 0 10px; /* Add margin for spacing */
+}
+
+.stat-value {
+    font-size: 1.5rem;
+    font-weight: bold;
+    transition: all 0.3s ease; /* Smooth transition */
+}
+
+/* Make the header background transparent */
+h2 {
+    background: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
+    padding: 10px;
+}
+
+/* Adjustments for dropdown and logo */
+#channelDropdown {
+    position: absolute; /* Adjust positioning as needed */
+    top: 10px;
+    left: 10px;
+}
