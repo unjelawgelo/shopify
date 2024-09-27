@@ -37,8 +37,8 @@ body {
 }
 
 #channelLogo {
-    max-height: 55px; /* Set maximum height for the logo */
-    max-width: 150px; /* Set maximum width to maintain aspect ratio */
+    max-height: 150px; /* Set maximum height for the logo */
+    max-width: 550px; /* Set maximum width to maintain aspect ratio */
     display: inline-block; /* Ensure it aligns properly */
 }
 
