@@ -37,7 +37,7 @@ body {
 }
 
 .profile-name {
-    color: black;
+    color: rgb(17, 16, 16);
 }
 
 .profile-icon {
@@ -79,8 +79,8 @@ body {
     border-radius: 5px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
-    max-width: 400px; /* Constrained width */
-    width: 90%; /* Make it responsive */
+    max-width: 350px; /* Constrained width */
+    width: 85%; /* Make it responsive */
 }
 
 .card1 {
