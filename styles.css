@@ -4,42 +4,69 @@ body {
 }
 
 .container {
-    width: 85%; /* Centering with some whitespaces */
+    width: 90%;
     margin: 0 auto;
 }
 
 .top-bar {
     background-color: #ffffffec;
-    padding: 15px 25px;
+    padding: 10px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    color: white;
     border-radius: 5px;
 }
+ 
 
+
+
+
+
+
+
+
+/* Logo in the middle */
 .top-bar .logo-container {
-    flex-grow: 1;
-    text-align: center;
-    background-color: white;
-    border-radius: 5px;
-    padding: 1px;
-    max-width: 100px;
+    flex-grow: 0; /* Allow the logo to grow and center it */
+    text-align: center; /* Center the logo */
+    background-color: white; /* White background for the logo */
+    border-radius: 5px; /* Rounded corners for the logo container */
+    padding: 0px; /* Padding around the logo */
+    display: inline-block; /* Ensure it aligns properly */
 }
 
 #channelLogo {
-    max-height: 50px;
-    max-width: 130px;
+    max-height: 55px; /* Set maximum height for the logo */
+    max-width: 150px; /* Set maximum width to maintain aspect ratio */
+    display: inline-block; /* Ensure it aligns properly */
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 .top-bar .profile {
     display: flex;
     align-items: center;
 }
-
 .profile-name {
-    color: rgb(17, 16, 16);
+    color: black;
 }
-
 .profile-icon {
     background-color: #6259b1;
     border-radius: 20%;
@@ -59,70 +86,59 @@ body {
     background: transparent;
     border: 2px solid transparent;
     color: #303b6d;
-    padding: 8px 16px;
-    margin: 0 8px;
+    padding: 10px 20px;
+    margin: 0 5px;
     cursor: pointer;
     border-radius: 5px;
     transition: all 0.3s ease;
 }
 
-.nav-btn.active,
+.nav-btn.active {
+    border-color: rgba(0, 128, 0, 0.193);
+    background-color: rgb(241, 255, 241);
+}
+
 .nav-btn:hover {
-    border-color: rgba(0, 128, 0, 0.25);
+    border-color: rgba(0, 128, 0, 0.193);
     background-color: rgb(241, 255, 241);
 }
 
 .card {
     background-color: white;
-    padding: 30px; /* Adjusted padding */
-    margin: 20px auto; /* Center the card horizontally with auto margins */
+    padding: 20px;
+    margin-top: 20px;
     border-radius: 5px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    max-width: 350px; /* Constrained width */
-    width: 85%; /* Make it responsive */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    text-align: center; /* Centering total sales text */
 }
-
-.card1 {
-    background-color: white;
-    padding: 30px; /* Adjusted padding */
-    margin: 20px auto; /* Center the card horizontally with auto margins */
-    border-radius: 5px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    max-width: 400px; /* Constrained width to match card */
-    width: 87%; /* Make it responsive */
-}
-
-
 
 .total-sales-text {
     margin: 0;
-    font-size: 1.2rem;
 }
 
+/* Style for the total sales */
 .stat-value {
-    font-size: 1rem; /* Reduced font size */
+    font-size: 3rem; /* Increase font size to make it bigger */
     font-weight: bold;
-    transition: all 0.3s ease;
+    transition: all 0.3s ease; /* Smooth transition */
 }
 
 .orders {
-    font-size: 1rem;
+    font-size: 1.2rem;
     color: gray;
 }
 
 .view-dashboard {
     color: #007bff;
     text-decoration: none;
-    margin-top: 15px;
+    margin-top: 10px;
     display: block;
 }
 
+ 
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 15px;
 }
 
 table,
@@ -133,7 +149,7 @@ td {
 
 th,
 td {
-    padding: 12px;
+    padding: 10px;
     text-align: left;
 }
 
@@ -143,68 +159,45 @@ tr.total-sales {
 
 h3 {
     margin: 0 0 10px;
-    font-size: 1.4rem;
+}
+
+.card {
+    position: relative;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
 }
 
 .sales-container {
     display: flex;
     align-items: center;
-    justify-content: space-around;
-    gap: 20px;
+    justify-content: center; /* Center the items */
+    gap: 30px; /* Add gap for spacing */
 }
 
+/* Example CSS for foreshadowing sales values */
 .foreshadow {
-    font-size: 1.3rem;
-    color: gray;
-    opacity: 0.8;
+    font-size: 1.5rem; /* Increase font size */
+    color: gray; /* Set text color to gray */
+    opacity: 0.7; /* Adjust opacity for faded effect */
+    margin: 0 10px; /* Add margin for spacing */
 }
 
 .stat-value {
     font-size: 1.5rem;
     font-weight: bold;
+    transition: all 0.3s ease; /* Smooth transition */
 }
 
+/* Make the header background transparent */
 h2 {
-    background: rgba(255, 255, 255, 0.9);
-    padding: 10px 20px;
+    background: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
+    padding: 10px;
 }
 
+/* Adjustments for dropdown and logo */
 #channelDropdown {
-    position: absolute;
-    top: 15px;
-    left: 15px;
-}
-
-.chart-container {
-    max-width: 100%; /* Allowing more room for charts */
-    margin: 0 auto;
-    padding: 1px;
-}
-
-
-.footer {
-    background-color: #1e1f20; /* Dark background color */
-    padding: 2px; /* Increased vertical padding for better visibility */
-    text-align: center; /* Center text */
-    border-top: 1px solid #ddd; /* Top border for separation */
-    color: rgb(255, 255, 255); /* White text color */
-    font-size: 0.8rem; /* Smaller font size */
-    margin-top: 20px; /* Space above the footer to separate it from content */
-    clear: both; /* Ensures footer stays below floated elements */
-    opacity: 0; /* Hide the footer by default */
-    transition: opacity 0.5s ease; /* Smooth transition for opacity */
-    visibility: hidden; /* Use visibility to avoid taking space when hidden */
-}
-
-.footer.visible {
-    opacity: 1; /* Make footer visible */
-    visibility: visible; /* Ensure it's visible in the layout */
-}
-
-.fake-word {
-    color: rgb(180, 219, 255); /* Sky blue color for the word "fake" */
-}
-
-.openai {
-    color: rgb(50, 255, 163); /* Sky blue color for the word "OpenAI" */
+    position: absolute; /* Adjust positioning as needed */
+    top: 10px;
+    left: 10px;
 }
