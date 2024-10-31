@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sales Dashboard | Mike Angelo</title>
-    <link rel="icon" type="image/png" href="shopify-logo.png">  
+    <link rel="icon" type="image/png" href="shopify-logo.png"> <!-- Update the filename accordingly -->
 
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -15,7 +15,7 @@
         
         <!-- Logo in the middle, now positioned where the dropdown was -->
         <div class="logo-container">
-            <img id="channelLogo" src="shopifly.png" alt="Channel Logo" />
+            <img id="channelLogo" src="shopify.png" alt="Channel Logo" />
         </div>
     
         <div class="profile">
@@ -32,85 +32,60 @@
         <button class="nav-btn" data-range="last-year">Last Year</button>
     </nav>
 
-<!-- Total Sales Section -->
-<div class="card">
-    <h2>Total Sales</h2>
-    <div class="sales-container">
-        <p class="foreshadow" id="previousSales"><span id="prevSalesValue">$10.0k</span></p>
-        <p class="stat-value" id="totalSales">$10.7k</p>
-        <p class="foreshadow" id="nextSales"><span id="nextSalesValue">$11.0k</span></p>
-    </div>
-    
-    <p class="orders" id="totalOrders">9.5k orders</p>
-    <canvas id="salesChart"></canvas>
-    <a href="overview.html" class="view-dashboard">View Dashboard</a>
-</div>
-
-<div class="container">
-    <div class="card1">
-        <div class="breakdown">
-            <h3>Total Sales Breakdown</h3>
-            <table>
-                <tr>
-                    <td>Orders</td>
-                    <td id="ordersValue">$322k</td>
-                </tr>
-                <tr>
-                    <td>Returns</td>
-                    <td id="returnsValue">-$571.39</td>
-                </tr>
-                <tr class="total-sales">
-                    <td>Total sales</td>
-                    <td id="finalSales">$321.7k</td>
-                </tr>
-            </table>
+    <!-- Total Sales Section -->
+    <div class="card">
+        <h2>Total Sales</h2>
+        <div class="sales-container">
+            <p class="foreshadow" id="previousSales"><span id="prevSalesValue">$310k</span></p>
+            <p class="stat-value" id="totalSales">$321k</p>
+            <p class="foreshadow" id="nextSales"><span id="nextSalesValue">$330k</span></p>
         </div>
- 
-        <div class="sales-by-channel">
-            <p></p>
-            <h3>Total Sales by Channel</h3>
-            <table>
-                <tr>
-                    <td>All channels</td>
-                    <td id="allChannelsSales">$321.7k</td>
-                    <td id="allChannelsOrders">9.5k orders</td>
-                </tr>
-                <tr>
-                    <td>Online Store</td>
-                    <td id="onlineStoreSales">$2.5k</td>
-                    <td id="onlineStoreOrders">6k orders</td>
-                </tr>
-                <tr>
-                    <td>Amazon</td>
-                    <td id="amazonSales">$121.9k</td>
-                    <td id="amazonOrders">3.4k orders</td>
-                </tr>
-            </table>
-        </div>
+        
+        <p class="orders" id="totalOrders">9.5k orders</p>
+        <canvas id="salesChart"></canvas>
+        <a href="overview.html" class="view-dashboard">View Dashboard</a>
     </div>
-</div>
 
-
-<!-- Footer Section -->
-<footer class="footer" id="footer">
-    <div class="container">
-        <p>This page is <span class="fake-word">fake</span> and only replicated using <span class="openai">OpenAI</span> 2024.</p>
+    <!-- Breakdown Section -->
+    <div class="breakdown">
+        <h3>Total Sales Breakdown</h3>
+        <table>
+            <tr>
+                <td>Orders</td>
+                <td id="ordersValue">$322k</td>
+            </tr>
+            <tr>
+                <td>Returns</td>
+                <td id="returnsValue">-$571.39</td>
+            </tr>
+            <tr class="total-sales">
+                <td>Total sales</td>
+                <td id="finalSales">$321.7k</td>
+            </tr>
+        </table>
     </div>
-</footer>
-<script>
-    window.addEventListener('scroll', function() {
-        const footer = document.getElementById('footer');
-        // Check if user has scrolled to the bottom
-        if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-            footer.classList.add('visible'); // Show the footer with transition
-        } else {
-            footer.classList.remove('visible'); // Hide the footer with transition
-        }
-    });
-</script>
 
-
- 
+    <!-- Sales by Channel Section -->
+    <div class="sales-by-channel">
+        <h3>Total Sales by Channel</h3>
+        <table>
+            <tr>
+                <td>All channels</td>
+                <td id="allChannelsSales">$321.7k</td>
+                <td id="allChannelsOrders">9.5k orders</td>
+            </tr>
+            <tr>
+                <td>Online Store</td>
+                <td id="onlineStoreSales">$2.5k</td>
+                <td id="onlineStoreOrders">6k orders</td>
+            </tr>
+            <tr>
+                <td>Amazon</td>
+                <td id="amazonSales">$121.9k</td>
+                <td id="amazonOrders">3.4k orders</td>
+            </tr>
+        </table>
+    </div>
 
     <script src="scripts.js"></script>
 </body>
