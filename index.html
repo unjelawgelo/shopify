@@ -34,6 +34,7 @@
             transition: opacity 0.5s ease, transform 0.5s ease;
             width: 250px;
             font-size: 14px;
+            pointer-events: auto; /* Allow interaction */
         }
         
         .popup-image-container {
@@ -163,46 +164,38 @@
     <script>
         const salesPopupContainer = document.getElementById('salesPopupContainer');
         const thisWeekButton = document.querySelector('[data-range="this-week"]');
-
-        let totalPopups = 0;
-        const maxPopups = 3;
-
+        
+        let totalPopups = 0;  // You can still track total popups if needed for debugging
+        const maxPopups = 3;   // Limit the number of visible popups at a time
+        
         // Function to generate random price
         function getRandomPrice() {
             return (Math.random() * (1000 - 50) + 50).toFixed(2); // Random price between $50 and $1000
         }
-
+        
         // Function to create a new sales popup card
         function createSalesPopup() {
-            if (totalPopups >= 20) {
-                // Reset the page after 20 popups
-                setTimeout(() => {
-                    window.location.reload(); // Reset the page
-                }, 1500);
-                return;
-            }
-
             let popup = document.createElement('div');
             popup.classList.add('sales-popup');
-
+        
             // Popup content
-            popup.innerHTML = `
+            popup.innerHTML = ` 
                 <div class="popup-image-container">
                     <img src="pop.jpg" alt="Shopify Icon" />
                 </div>
                 <span>A purchase just happened!</span>
                 <span class="popup-price">$${getRandomPrice()}</span>
             `;
-
+        
             salesPopupContainer.appendChild(popup);
             totalPopups++;
-
-            // Remove the first popup if there are more than 3
+        
+            // Remove the first popup if there are more than 3 visible popups
             if (salesPopupContainer.children.length > maxPopups) {
                 removeSalesPopup();
             }
         }
-
+        
         // Function to remove the first popup card after fade-out
         function removeSalesPopup() {
             let allPopups = salesPopupContainer.children;
@@ -214,20 +207,19 @@
                 }, 500);
             }
         }
-
-        // Trigger popups when "This Week" button is clicked
+        
+        // Trigger popups infinitely when "This Week" button is clicked
         thisWeekButton.addEventListener('click', () => {
             const popupInterval = () => {
-                if (totalPopups < 20) {
-                    createSalesPopup();
-                    let randomDelay = Math.floor(Math.random() * (3000 - 1000) + 1000); // Random between 1 and 3 seconds
-                    setTimeout(popupInterval, randomDelay);
-                }
+                createSalesPopup(); // Create a new popup immediately
+                let randomDelay = Math.floor(Math.random() * (3000 - 1000) + 1000); // Random between 1 and 3 seconds
+                setTimeout(popupInterval, randomDelay); // Continue creating popups with random delay
             };
-            popupInterval(); // Start the popups immediately
+            popupInterval(); // Start the infinite popups immediately
         });
     </script>
-
+    
+    
     <script src="scripts.js"></script>
 </body>
 </html>
