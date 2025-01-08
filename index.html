@@ -4,35 +4,107 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sales Dashboard | Mike Angelo</title>
-    <link rel="icon" type="image/png" href="shopify-logo.png"> <!-- Update the filename accordingly -->
-
+    <link rel="icon" type="image/png" href="shopify-logo.png">
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* Sales Popup Styling */
+        .sales-popup-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            pointer-events: none;
+            z-index: 1000;
+        }
+        
+        .sales-popup {
+            display: flex;
+            align-items: center;
+            background-color: white;
+            color: black;
+            padding: 8px 15px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            opacity: 1;
+            position: relative;
+            animation: popupAnimation 2s ease-out forwards;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            width: 250px;
+            font-size: 14px;
+        }
+        
+        .popup-image-container {
+            width: 30px;
+            height: 30px;
+            margin-right: 8px;
+            overflow: hidden;
+        }
+
+        .popup-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            cursor: pointer;
+        }
+
+        .popup-price {
+            margin-left: auto;
+            font-weight: bold;
+            font-size: 14px;
+            color: #000000;
+        }
+
+        /* Animation for popups */
+        @keyframes popupAnimation {
+            0% {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            60% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Fade-out animation for removal */
+        @keyframes fadeOut {
+            0% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+        }
+    </style>
 </head>
 <body>
     <header class="top-bar">
-        <!-- Removed the channel dropdown -->
-        
-        <!-- Logo in the middle, now positioned where the dropdown was -->
         <div class="logo-container">
             <img id="channelLogo" src="shopify.png" alt="Channel Logo" />
         </div>
-    
         <div class="profile">
             <div class="profile-icon">MA</div>
             <div class="profile-name">Mike Angelo</div>
         </div>
     </header>
-    
+
     <nav class="navbar">
-        <button class="nav-btn active" data-range="today">Today</button>
-        <button class="nav-btn" data-range="this-week">This Week</button>
+        <button class="nav-btn" data-range="today">Today</button>
+        <button class="nav-btn active" data-range="this-week">This Week</button>
         <button class="nav-btn" data-range="this-month">This Month</button>
         <button class="nav-btn" data-range="last-month">Last Month</button>
         <button class="nav-btn" data-range="last-year">Last Year</button>
     </nav>
 
-    <!-- Total Sales Section -->
     <div class="card">
         <h2>Total Sales</h2>
         <div class="sales-container">
@@ -46,7 +118,6 @@
         <a href="overview.html" class="view-dashboard">View Dashboard</a>
     </div>
 
-    <!-- Breakdown Section -->
     <div class="breakdown">
         <h3>Total Sales Breakdown</h3>
         <table>
@@ -65,7 +136,6 @@
         </table>
     </div>
 
-    <!-- Sales by Channel Section -->
     <div class="sales-by-channel">
         <h3>Total Sales by Channel</h3>
         <table>
@@ -86,6 +156,77 @@
             </tr>
         </table>
     </div>
+
+    <!-- Sales Popup Container -->
+    <div id="salesPopupContainer" class="sales-popup-container"></div>
+
+    <script>
+        const salesPopupContainer = document.getElementById('salesPopupContainer');
+        const thisWeekButton = document.querySelector('[data-range="this-week"]');
+
+        let totalPopups = 0;
+        const maxPopups = 3;
+
+        // Function to generate random price
+        function getRandomPrice() {
+            return (Math.random() * (1000 - 50) + 50).toFixed(2); // Random price between $50 and $1000
+        }
+
+        // Function to create a new sales popup card
+        function createSalesPopup() {
+            if (totalPopups >= 20) {
+                // Reset the page after 20 popups
+                setTimeout(() => {
+                    window.location.reload(); // Reset the page
+                }, 1500);
+                return;
+            }
+
+            let popup = document.createElement('div');
+            popup.classList.add('sales-popup');
+
+            // Popup content
+            popup.innerHTML = `
+                <div class="popup-image-container">
+                    <img src="pop.jpg" alt="Shopify Icon" />
+                </div>
+                <span>A purchase just happened!</span>
+                <span class="popup-price">$${getRandomPrice()}</span>
+            `;
+
+            salesPopupContainer.appendChild(popup);
+            totalPopups++;
+
+            // Remove the first popup if there are more than 3
+            if (salesPopupContainer.children.length > maxPopups) {
+                removeSalesPopup();
+            }
+        }
+
+        // Function to remove the first popup card after fade-out
+        function removeSalesPopup() {
+            let allPopups = salesPopupContainer.children;
+            if (allPopups.length > 0) {
+                let firstPopup = allPopups[0];
+                firstPopup.style.animation = 'fadeOut 0.5s forwards';
+                setTimeout(() => {
+                    firstPopup.remove();
+                }, 500);
+            }
+        }
+
+        // Trigger popups when "This Week" button is clicked
+        thisWeekButton.addEventListener('click', () => {
+            const popupInterval = () => {
+                if (totalPopups < 20) {
+                    createSalesPopup();
+                    let randomDelay = Math.floor(Math.random() * (3000 - 1000) + 1000); // Random between 1 and 3 seconds
+                    setTimeout(popupInterval, randomDelay);
+                }
+            };
+            popupInterval(); // Start the popups immediately
+        });
+    </script>
 
     <script src="scripts.js"></script>
 </body>
