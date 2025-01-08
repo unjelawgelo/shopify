@@ -5,10 +5,104 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Overview Dashboard</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Card styling for the video */
+        .video-card {
+            width: 80%; /* Adjust to your desired card width */
+            margin: 20px auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            overflow: hidden;
+        }
+
+        /* Video container now based on the video's intrinsic aspect ratio */
+        .video-container {
+            position: relative;
+            display: block;
+            max-width: 100%;
+            background-color: #000; /* Optional background color */
+        }
+
+        .video-container video {
+            width: 100%;
+            height: auto; /* Let the height adjust based on width */
+            max-width: 100%;
+        }
+
+        /* Sales popup container positioned at the top-right of the page */
+        .sales-popup-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        /* Styling for each sales popup card */
+        .sales-popup {
+            display: flex;
+            align-items: center;
+            background-color: white; /* White background */
+            color: black; /* Black text */
+            padding: 10px 20px;
+            border-radius: 8px; /* Smooth corners */
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            opacity: 1;
+            position: relative;
+            animation: popupAnimation 2s ease-out forwards;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            width: 300px; /* Rectangular shape */
+        }
+
+        /* Image container within each popup */
+        .popup-image-container {
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+            overflow: hidden;
+        }
+
+        .popup-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Price in popup */
+        .popup-price {
+            margin-left: auto;
+            font-weight: bold;
+            font-size: 16px;
+            color: #000000; /* Blue color for price */
+        }
+
+        /* Animation for popup cards */
+        @keyframes popupAnimation {
+            0% {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            60% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
 </head>
 <body>
     <header class="top-bar">
-        <h1>Overview Dashboard</h1>
+        <div class="logo-container">
+            <img id="channelLogo" src="shopify.png" alt="Channel Logo" />
+        </div>
+    
         <div class="profile">
             <div class="profile-icon">MA</div>
             <div class="profile-name">Mike Angelo</div>
@@ -16,43 +110,108 @@
     </header>
 
     <div class="container">
-        <section class="earnings-section">
-            <h2>Your Earnings</h2>
-            <p class="stat-value" id="totalEarnings">$1,200,000.00</p>
-            <p class="stat-description">Annual revenue based on current sales data.</p>
-        </section>
-
-        <section class="metrics-section">
-            <h3>Key Metrics</h3>
-            <ul>
-                <li>Total Orders: <span>30,000</span></li>
-                <li>Average Order Value: <span>$40.00</span></li>
-                <li>Conversion Rate: <span>2.5%</span></li>
-            </ul>
-        </section>
-
-        <section class="breakdown-section">
-            <h3>Sales Breakdown</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Channel</th>
-                        <th>Revenue</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Online Store</td>
-                        <td>$700,000.00</td>
-                    </tr>
-                    <tr>
-                        <td>Amazon</td>
-                        <td>$500,000.00</td>
-                    </tr>
-                </tbody>
-            </table>
+        <section class="video-section">
+            <div class="video-card">
+                <div class="video-container">
+                    <video id="salesVideo" controls>
+                        <source src="shopify.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </div>
         </section>
     </div>
+
+    <!-- Sales Popup Container -->
+    <div id="salesPopupContainer" class="sales-popup-container"></div>
+
+    <script>
+        const salesPopupContainer = document.getElementById('salesPopupContainer');
+        const videoElement = document.getElementById('salesVideo');
+
+        let popupCount = 0;
+        const maxPopups = 3; // Only allow up to 3 popups at once
+        let totalPopups = 0; // Track the total number of popups
+
+        // Function to generate random price
+        function getRandomPrice() {
+            return (Math.random() * (1000 - 50) + 50).toFixed(2); // Random price between $50 and $1000
+        }
+
+        // Function to create a new sales popup card
+        function createSalesPopup() {
+            if (totalPopups >= 20) return; // Stop after 20 popups
+
+            let popup = document.createElement('div');
+            popup.classList.add('sales-popup');
+
+            // Popup with image container and price
+            popup.innerHTML = `
+                <div class="popup-image-container">
+                    <img src="pop.jpg" alt="Shopify Icon" />
+                </div>
+                <span>A purchase just happened!</span>
+                <span class="popup-price">$${getRandomPrice()}</span>
+            `;
+            salesPopupContainer.appendChild(popup);
+            totalPopups++;
+
+            // Once 3 popups are stacked, start removing them one by one
+            if (salesPopupContainer.children.length > maxPopups) {
+                removeSalesPopup();
+            }
+        }
+
+        // Function to remove the first popup card after a delay
+        function removeSalesPopup() {
+            let allPopups = salesPopupContainer.children;
+            if (allPopups.length > 0) {
+                let firstPopup = allPopups[0];
+                firstPopup.style.opacity = '0';  // Fade out
+                firstPopup.style.transform = 'translateY(50px)';
+
+                setTimeout(() => {
+                    firstPopup.remove();  // Remove the card after it fades out
+                }, 500);  // Fade out duration
+            }
+        }
+
+        // Trigger popups after video ends
+        videoElement.addEventListener('ended', () => {
+            // Create the first popup immediately, and then continue creating them with random delays
+            const popupInterval = () => {
+                if (totalPopups < 20) {
+                    createSalesPopup();
+
+                    // Set a random delay between 1 to 3 seconds for the next popup
+                    let randomDelay = Math.floor(Math.random() * (3000 - 1000) + 1000); // Random between 1 and 3 seconds
+                    setTimeout(popupInterval, randomDelay); // Continue after the random delay
+                } else {
+                    // After 20 popups, stop and remove remaining popups
+                    setTimeout(() => {
+                        removeAllSalesPopups();
+                    }, 1500); // Allow some time for the last popup to be added before removing all
+                }
+            };
+
+            popupInterval(); // Start the first popup immediately
+        });
+
+        // Function to remove all remaining popups after 20 popups
+        function removeAllSalesPopups() {
+            let allPopups = salesPopupContainer.children;
+            while (allPopups.length > 0) {
+                let popup = allPopups[0];
+                popup.style.opacity = '0';  // Fade out
+                popup.style.transform = 'translateY(50px)';
+
+                setTimeout(() => {
+                    popup.remove();  // Remove the card after it fades out
+                }, 500);  // Fade out duration
+            }
+        }
+
+    </script>
 
     <script src="scripts.js"></script>
 </body>
