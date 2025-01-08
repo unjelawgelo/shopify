@@ -70,6 +70,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            cursor: pointer; /* Makes the image appear clickable */
         }
 
         /* Price in popup */
@@ -95,6 +96,19 @@
                 transform: translateY(0);
             }
         }
+
+        /* Fade-out animation for removal, moving upwards */
+        @keyframes fadeOut {
+            0% {
+                opacity: 1;
+                transform: translateY(0); /* Start at original position */
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-50px); /* Move upwards as it fades out */
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -153,6 +167,13 @@
                 <span>A purchase just happened!</span>
                 <span class="popup-price">$${getRandomPrice()}</span>
             `;
+
+            // Add the event listener directly to the image after it is created
+            const image = popup.querySelector('img');
+            image.addEventListener('click', function () {
+                window.location.href = 'index.html'; // Redirect to index.html when the image is clicked
+            });
+
             salesPopupContainer.appendChild(popup);
             totalPopups++;
 
@@ -162,17 +183,16 @@
             }
         }
 
-        // Function to remove the first popup card after a delay
+        // Function to remove the first popup card after a delay with smooth fade-out going up
         function removeSalesPopup() {
             let allPopups = salesPopupContainer.children;
             if (allPopups.length > 0) {
                 let firstPopup = allPopups[0];
-                firstPopup.style.opacity = '0';  // Fade out
-                firstPopup.style.transform = 'translateY(50px)';
+                firstPopup.style.animation = 'fadeOut 0.5s forwards'; // Trigger fade-out animation with upwards motion
 
                 setTimeout(() => {
-                    firstPopup.remove();  // Remove the card after it fades out
-                }, 500);  // Fade out duration
+                    firstPopup.remove();  // Remove the card after fade-out animation completes
+                }, 500);  // Fade-out duration matches the animation
             }
         }
 
@@ -202,12 +222,11 @@
             let allPopups = salesPopupContainer.children;
             while (allPopups.length > 0) {
                 let popup = allPopups[0];
-                popup.style.opacity = '0';  // Fade out
-                popup.style.transform = 'translateY(50px)';
+                popup.style.animation = 'fadeOut 0.5s forwards';  // Trigger fade-out animation with upwards motion
 
                 setTimeout(() => {
                     popup.remove();  // Remove the card after it fades out
-                }, 500);  // Fade out duration
+                }, 500);  // Fade-out duration matches the animation
             }
         }
 
