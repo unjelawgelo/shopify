@@ -42,7 +42,7 @@
             z-index: 1000;
         }
 
-            /* Styling for each sales popup card with reduced size */
+    /* Styling for each sales popup card with reduced size */
     .sales-popup {
         display: flex;
         align-items: center;
@@ -80,6 +80,13 @@
         font-weight: bold;
         font-size: 14px; /* Reduced font size for price */
         color: #000000; /* Black color for price */
+    }
+
+    /* Prevent text from wrapping */
+    .sales-popup span:first-child {
+        white-space: nowrap; /* Ensure the text stays in one line */
+        font-size: 13px; /* Adjust font size for better fit */
+        margin-right: 5px; /* Adjust margin if needed */
     }
 
     /* Animation for popup cards */
@@ -143,23 +150,30 @@
     <script>
         const salesPopupContainer = document.getElementById('salesPopupContainer');
         const videoElement = document.getElementById('salesVideo');
-
+    
         let popupCount = 0;
         const maxPopups = 3; // Only allow up to 3 popups at once
         let totalPopups = 0; // Track the total number of popups
-
+    
         // Function to generate random price
         function getRandomPrice() {
             return (Math.random() * (1000 - 50) + 50).toFixed(2); // Random price between $50 and $1000
         }
-
+    
         // Function to create a new sales popup card
         function createSalesPopup() {
-            if (totalPopups >= 20) return; // Stop after 20 popups
-
+            if (totalPopups >= 20) {
+                // Stop and reset the page after 20 popups
+                setTimeout(() => {
+                    window.location.reload(); // Reset the page
+                }, 1500); // Delay for 1.5 seconds before reloading the page for smooth transition
+    
+                return; // Exit the function to prevent further popups after 20
+            }
+    
             let popup = document.createElement('div');
             popup.classList.add('sales-popup');
-
+    
             // Popup with image container and price
             popup.innerHTML = `
                 <div class="popup-image-container">
@@ -168,70 +182,70 @@
                 <span>A purchase just happened!</span>
                 <span class="popup-price">$${getRandomPrice()}</span>
             `;
-
+    
             // Add the event listener directly to the image after it is created
             const image = popup.querySelector('img');
             image.addEventListener('click', function () {
                 window.location.href = 'index.html'; // Redirect to index.html when the image is clicked
             });
-
+    
             salesPopupContainer.appendChild(popup);
             totalPopups++;
-
+    
             // Once 3 popups are stacked, start removing them one by one
             if (salesPopupContainer.children.length > maxPopups) {
                 removeSalesPopup();
             }
         }
-
+    
         // Function to remove the first popup card after a delay with smooth fade-out going up
         function removeSalesPopup() {
             let allPopups = salesPopupContainer.children;
             if (allPopups.length > 0) {
                 let firstPopup = allPopups[0];
                 firstPopup.style.animation = 'fadeOut 0.5s forwards'; // Trigger fade-out animation with upwards motion
-
+    
                 setTimeout(() => {
                     firstPopup.remove();  // Remove the card after fade-out animation completes
                 }, 500);  // Fade-out duration matches the animation
             }
         }
-
+    
         // Trigger popups after video ends
         videoElement.addEventListener('ended', () => {
             // Create the first popup immediately, and then continue creating them with random delays
             const popupInterval = () => {
                 if (totalPopups < 20) {
                     createSalesPopup();
-
+    
                     // Set a random delay between 1 to 3 seconds for the next popup
                     let randomDelay = Math.floor(Math.random() * (3000 - 1000) + 1000); // Random between 1 and 3 seconds
                     setTimeout(popupInterval, randomDelay); // Continue after the random delay
                 } else {
-                    // After 20 popups, stop and remove remaining popups
+                    // After 20 popups, stop and reset the page
                     setTimeout(() => {
-                        removeAllSalesPopups();
-                    }, 1500); // Allow some time for the last popup to be added before removing all
+                        window.location.reload(); // Reset the page after 20 popups
+                    }, 1500); // Wait for some time before reloading
                 }
             };
-
+    
             popupInterval(); // Start the first popup immediately
         });
-
+    
         // Function to remove all remaining popups after 20 popups
         function removeAllSalesPopups() {
             let allPopups = salesPopupContainer.children;
             while (allPopups.length > 0) {
                 let popup = allPopups[0];
                 popup.style.animation = 'fadeOut 0.5s forwards';  // Trigger fade-out animation with upwards motion
-
+    
                 setTimeout(() => {
                     popup.remove();  // Remove the card after it fades out
                 }, 500);  // Fade-out duration matches the animation
             }
         }
-
     </script>
+    
 
     <script src="scripts.js"></script>
 </body>
